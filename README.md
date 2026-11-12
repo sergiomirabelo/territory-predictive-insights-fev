@@ -62,7 +62,21 @@ Testes JUnit 5 no padrão AAA em `src/test/java`: validação de `Medicao`, as d
 
 ## 8. Uso de IA
 
-> **PREENCHER pela equipe, com suas palavras:** onde a IA foi usada (ex.: tirar dúvidas sobre JPA, Mockito, estrutura do projeto, geração de código inicial), e **como o código foi revisado** (ex.: cada integrante leu e rodou o que ficou com sua parte, alterou e testou, consegue explicar cada classe).
+Utilizamos o Claude (Anthropic) como ferramenta de apoio durante o desenvolvimento do projeto, principalmente para esclarecer dúvidas técnicas, consultar exemplos de implementação e auxiliar na resolução de problemas relacionados ao Maven, IntelliJ, Spring Boot e JPA.
+
+-Como revisamos e validamos:
+
+Rodamos o projeto nas nossas máquinas e verificamos se as funcionalidades estavam funcionando como esperado.
+
+Executamos os 20 testes com JUnit e Mockito para conferir se as principais partes do sistema estavam funcionando corretamente.
+
+Testamos as opções do menu, incluindo o cadastro, as consultas e o histórico, verificando também se as informações continuavam salvas depois de fechar e iniciar o programa novamente.
+
+Cada integrante estudou e procurou entender as partes do projeto, compartilhando com o grupo o funcionamento das classes e das funcionalidades.
+
+Ao longo do desenvolvimento, fizemos ajustes no código e na documentação conforme identificávamos pontos que precisavam de melhorias.
+
+Revisamos o README para garantir que as informações e instruções estivessem de acordo com o projeto entregue.
 
 ## 9. Divisão de tarefas
 
