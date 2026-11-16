@@ -9,10 +9,6 @@ import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Uma leitura de sensor. @Entity = esta classe vira uma TABELA no banco.
- * Cada objeto Medicao vira uma LINHA.
- */
 @Entity
 public class Medicao {
 
@@ -28,7 +24,6 @@ public class Medicao {
     private String unidade;
     private LocalDateTime dataHora;
 
-    /** Exigido pelo JPA (nao usamos direto). */
     protected Medicao() {
     }
 
