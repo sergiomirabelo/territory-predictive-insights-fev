@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/** Um alerta emitido. Tambem vira tabela no banco. */
 @Entity
 public class Alerta {
 
