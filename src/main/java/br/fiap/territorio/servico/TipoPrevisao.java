@@ -5,10 +5,6 @@ import br.fiap.territorio.dominio.PrevisaoComparacao;
 import br.fiap.territorio.dominio.PrevisaoMediaMovel;
 import br.fiap.territorio.excecao.DadosInvalidosException;
 
-/**
- * Cada tipo sabe criar a SUA estrategia. Por isso a fabrica nao precisa
- * de "if (tipo == ...)": basta chamar tipo.criar(janela).
- */
 public enum TipoPrevisao {
 
     MEDIA_MOVEL {
