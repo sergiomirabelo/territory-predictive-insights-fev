@@ -1,13 +1,7 @@
 package br.fiap.territorio.dominio;
 
-/**
- * Classe ABSTRATA: representa qualquer "pedaco" do territorio que
- * monitoramos (um ponto de alagamento, uma UBS, uma estacao etc.).
- * Nao da para criar um ComponenteTerritorial direto: so as filhas.
- */
 public abstract class ComponenteTerritorial {
 
-    // ENCAPSULAMENTO: atributos privados, acesso so por getters
     private final long id;
     private final String nome;
     private final String regiao;
@@ -19,7 +13,6 @@ public abstract class ComponenteTerritorial {
         this.regiao = regiao;
     }
 
-    /** Metodo ABSTRATO: cada filha decide como verifica o proprio status. */
     public abstract StatusComponente verificarStatus();
 
     public long getId() {
