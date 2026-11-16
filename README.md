@@ -80,4 +80,19 @@ Revisamos o README para garantir que as informações e instruções estivessem 
 
 ## 9. Divisão de tarefas
 
-> **PREENCHER:** quem ficou com domínio e exceções, persistência, previsões/alertas e testes.
+O código-base foi feito em conjunto por todos membros do grupo. Depois disso, dividimos o estudo,
+a revisão e as melhorias entre os três integrantes, cada um responsável por uma área:
+
+- *Erick Gimenez - Domínio e exceções:* estudou e revisou as classes ComponenteTerritorial,
+  Sensor, SensorSimulado e as duas exceções customizadas. Escreveu a seção
+  "Reflexão crítica" do README e adicionou um teste para o PontoMonitorado.
+- *Marcus Monteiro - Persistência:* estudou e revisou as entidades Medicao e Alerta, os
+  repositories e a configuração do banco H2. Escreveu as seções 8 e 9 do README e
+  [implementou a exportação do histórico em CSV, se for feita].
+- *Sergio Mirabelo - Previsões, alertas e testes:* estudou e revisou EstrategiaPrevisao,
+  as duas estratégias, a FabricaPrevisao, o ConfiguracaoSistema e os testes com
+  Mockito. Subiu o projeto no GitHub e escreveu as seções "Decisões da equipe" e
+  "Padrões criacionais" do README. Adicionou um teste para PrevisaoComparacao.
+
+Antes da entrega, cada integrante explicou a sua área para os outros dois, e todos
+rodaram o projeto e os testes na própria máquina.
