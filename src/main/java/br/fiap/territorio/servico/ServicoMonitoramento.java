@@ -24,10 +24,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * Regras de negocio: ler sensores, validar, gravar, prever e alertar.
- * Nao tem menu nem Scanner aqui (por isso e facil de testar).
- */
 @Service
 public class ServicoMonitoramento {
 
@@ -38,13 +34,11 @@ public class ServicoMonitoramento {
     private final ConfiguracaoSistema configuracao;
     private final PontoMonitorado ponto;
 
-    /** Usado pelo Spring (ele injeta os dois repositories). */
     @Autowired
     public ServicoMonitoramento(MedicaoRepository medicaoRepository, AlertaRepository alertaRepository) {
         this(medicaoRepository, alertaRepository, ConfiguracaoSistema.getInstance());
     }
 
-    /** Usado nos testes (repositories falsos com Mockito). */
     public ServicoMonitoramento(MedicaoRepository medicaoRepository, AlertaRepository alertaRepository,
                                 ConfiguracaoSistema configuracao) {
         this.medicaoRepository = medicaoRepository;
@@ -59,7 +53,6 @@ public class ServicoMonitoramento {
                 configuracao.getDados().getRegiao(), sensores);
     }
 
-    // ---------------------------------------------------------------- sensores
 
     public List<Sensor> getSensores() {
         return ponto.getSensores();
@@ -73,15 +66,11 @@ public class ServicoMonitoramento {
         return configuracao;
     }
 
-    // ---------------------------------------------------------------- leituras
-
-    /** Le o sensor, valida e grava no banco. */
     public Medicao lerERegistrar(Sensor sensor) throws DadosInvalidosException, FonteIndisponivelException {
-        double valor = sensor.lerValor(); // pode lancar FonteIndisponivelException
+        double valor = sensor.lerValor(); 
         return registrar(sensor, valor);
     }
 
-    /** Valida o valor (faixa do sensor) e grava. Valor ruim = DadosInvalidosException. */
     public Medicao registrar(Sensor sensor, double valor) throws DadosInvalidosException {
         if (Double.isNaN(valor) || valor < sensor.getMinimo() || valor > sensor.getMaximo()) {
             throw new DadosInvalidosException(String.format(BR,
@@ -92,7 +81,6 @@ public class ServicoMonitoramento {
         return medicaoRepository.save(medicao);
     }
 
-    /** As N medicoes mais recentes, em ordem cronologica (antiga primeiro). */
     public List<Medicao> ultimasMedicoes(String sensorId, int quantidade) {
         List<Medicao> recentes = new ArrayList<>(
                 medicaoRepository.findBySensorIdOrderByIdDesc(sensorId, PageRequest.of(0, quantidade)));
@@ -104,12 +92,6 @@ public class ServicoMonitoramento {
         return alertaRepository.findAllByOrderByIdDesc();
     }
 
-    // ---------------------------------------------------------------- previsao
-
-    /**
-     * Roda TODAS as estrategias sobre o historico do banco e emite alertas.
-     * Se houver pouco historico, lanca DadosInvalidosException (o sistema se cala).
-     */
     public List<ResultadoPrevisao> preverSensor(Sensor sensor) throws DadosInvalidosException {
         int janela = configuracao.getJanelaPrevisao();
         List<Double> historico = new ArrayList<>();
@@ -119,13 +101,12 @@ public class ServicoMonitoramento {
 
         List<ResultadoPrevisao> resultados = new ArrayList<>();
         for (EstrategiaPrevisao estrategia : FabricaPrevisao.todas(janela)) {
-            double previsto = estrategia.prever(historico); // polimorfismo: cada uma calcula do seu jeito
+            double previsto = estrategia.prever(historico); 
             resultados.add(avaliar(sensor, estrategia.getNome(), previsto));
         }
         return resultados;
     }
 
-    /** Compara a previsao com os limiares e, se estourou, grava um Alerta. */
     private ResultadoPrevisao avaliar(Sensor sensor, String estrategia, double previsto)
             throws DadosInvalidosException {
         NivelAlerta nivel = classificar(sensor.getTipo(), previsto);
@@ -147,7 +128,6 @@ public class ServicoMonitoramento {
         return new ResultadoPrevisao(sensor.getId(), estrategia, previsto, sensor.getUnidade(), nivel, mensagem);
     }
 
-    /** Devolve o maior nivel estourado, ou null se esta abaixo de tudo. */
     public NivelAlerta classificar(String tipoSensor, double valor) throws DadosInvalidosException {
         Limiar limiar = configuracao.getDados().obterLimiares(tipoSensor);
         if (valor >= limiar.critico()) {
@@ -162,7 +142,6 @@ public class ServicoMonitoramento {
         return null;
     }
 
-    // ---------------------------------------------------------------- status
 
     public String statusCompleto() {
         StringBuilder sb = new StringBuilder();
