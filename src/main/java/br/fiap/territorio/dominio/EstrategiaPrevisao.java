@@ -4,16 +4,8 @@ import br.fiap.territorio.excecao.DadosInvalidosException;
 
 import java.util.List;
 
-/**
- * Classe ABSTRATA de previsao. As filhas (PrevisaoMediaMovel e
- * PrevisaoComparacao) SOBRESCREVEM prever() e chamam super.prever()
- * para reaproveitar a validacao feita aqui.
- *
- * O historico sempre chega em ORDEM CRONOLOGICA (mais antigo primeiro).
- */
 public abstract class EstrategiaPrevisao {
 
-    /** Menos que isso e "chute": o sistema se cala (ver reflexao no README). */
     public static final int MINIMO_LEITURAS = 5;
 
     private final String nome;
@@ -31,10 +23,6 @@ public abstract class EstrategiaPrevisao {
         return nome;
     }
 
-    /**
-     * Versao base: valida o historico e devolve a ultima leitura
-     * (a previsao mais simples possivel: "vai continuar igual").
-     */
     public double prever(List<Double> historico) throws DadosInvalidosException {
         if (historico == null || historico.size() < MINIMO_LEITURAS) {
             int tem = historico == null ? 0 : historico.size();
@@ -45,7 +33,6 @@ public abstract class EstrategiaPrevisao {
         return historico.get(historico.size() - 1);
     }
 
-    /** Media dos elementos de inicio (inclusive) ate fim (exclusivo). */
     protected static double media(List<Double> valores, int inicio, int fim) {
         double soma = 0;
         for (int i = inicio; i < fim; i++) {
