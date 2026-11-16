@@ -2,10 +2,6 @@ package br.fiap.territorio.dominio;
 
 import java.util.List;
 
-/**
- * Classe CONCRETA que herda de ComponenteTerritorial: um ponto vulneravel
- * do territorio (ex.: trecho de corrego que alaga) com seus sensores.
- */
 public class PontoMonitorado extends ComponenteTerritorial {
 
     private final List<Sensor> sensores;
@@ -19,7 +15,6 @@ public class PontoMonitorado extends ComponenteTerritorial {
         return sensores;
     }
 
-    /** Implementacao do metodo abstrato: o status depende dos sensores. */
     @Override
     public StatusComponente verificarStatus() {
         long funcionando = sensores.stream().filter(Sensor::estaFuncionando).count();
