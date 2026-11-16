@@ -5,11 +5,6 @@ import br.fiap.territorio.excecao.DadosInvalidosException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Dados do territorio (descrito por regiao, NUNCA por pessoas).
- * Atributos PRIVADOS: so mudam pelos metodos abaixo, que VALIDAM.
- * Assim ninguem coloca populacao negativa ou limiares sem sentido.
- */
 public class DadosTerritorio {
 
     private String nome;
@@ -73,7 +68,6 @@ public class DadosTerritorio {
         return limiar;
     }
 
-    /** Copia somente leitura, para exibir no menu. */
     public Map<String, Limiar> getLimiares() {
         return Map.copyOf(limiares);
     }
