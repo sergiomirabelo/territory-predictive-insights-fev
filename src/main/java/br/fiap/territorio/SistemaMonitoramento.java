@@ -17,11 +17,6 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-/**
- * Menu de console. O Spring chama run() depois de subir.
- * Aqui so tem entrada/saida: a logica fica no ServicoMonitoramento.
- * (Textos sem acento de proposito: o console do Windows pode embaralhar acentos.)
- */
 @Component
 public class SistemaMonitoramento implements CommandLineRunner {
 
@@ -84,7 +79,6 @@ public class SistemaMonitoramento implements CommandLineRunner {
         }
     }
 
-    // ------------------------------------------------------------------ opcoes
 
     private void verificarSensores() {
         for (Sensor sensor : servico.getSensores()) {
@@ -137,7 +131,6 @@ public class SistemaMonitoramento implements CommandLineRunner {
                     System.out.println("   " + r.explicacao());
                 }
             } catch (DadosInvalidosException e) {
-                // O sistema se cala quando nao tem base para prever (ver README)
                 System.out.println("Sem previsao: " + e.getMessage());
             }
         }
@@ -164,7 +157,6 @@ public class SistemaMonitoramento implements CommandLineRunner {
         alertas.forEach(a -> System.out.println("  " + a));
     }
 
-    // ------------------------------------------------------------ dados territorio
 
     private void gerenciarDados() throws DadosInvalidosException {
         DadosTerritorio dados = servico.getConfiguracao().getDados();
@@ -187,7 +179,7 @@ public class SistemaMonitoramento implements CommandLineRunner {
                 double a = lerNumero("Novo limiar de ATENCAO: ");
                 double b = lerNumero("Novo limiar de ALERTA: ");
                 double c = lerNumero("Novo limiar CRITICO: ");
-                dados.definirLimiares(tipo, a, b, c); // valida e pode lancar DadosInvalidosException
+                dados.definirLimiares(tipo, a, b, c); 
                 System.out.println("Limiares atualizados.");
             }
             case 3 -> {
@@ -204,7 +196,6 @@ public class SistemaMonitoramento implements CommandLineRunner {
         }
     }
 
-    // ---------------------------------------------------------------- auxiliares
 
     private Sensor escolherSensor() throws DadosInvalidosException {
         List<Sensor> sensores = servico.getSensores();
